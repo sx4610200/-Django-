@@ -1,0 +1,28 @@
+<table class="table table-hover">
+    <tr>
+        <td>
+            发送人
+        </td>
+        <td>
+            消息内容
+        </td>
+        <td>
+            时间
+        </td>
+
+    </tr>
+    {% for n in news %}
+    <tr>
+
+        <td>
+            {{ n.sendname }}
+        </td>
+        <td>
+            {{ n.contents }}
+        </td>
+        <td>
+            {{ n.pdtime }}
+        </td>
+    </tr>
+    {% endfor %}
+</table>

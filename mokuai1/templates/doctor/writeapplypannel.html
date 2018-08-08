@@ -1,0 +1,11 @@
+<form method="post" action='/system/writeapply/'>
+
+    {% csrf_token %}
+    <textarea name='content' class="form-control" rows='12' cols="60px">{{content.0.content}}</textarea><br/>
+    <input type="hidden" class="btn btn-default" name="uid" value={{ uid }}>
+    {% if content.0.content == None %}
+        <input type="submit" class="btn btn-primary" value="提交">
+    {% else %}
+        <input type="submit" class="btn btn-warning" value="修改" >
+    {% endif %}
+</form>

@@ -1,0 +1,49 @@
+<script>
+  function applysuccess( ) {
+       if (confirm("确认通过"))
+       {
+        location.href='/system/applysuccess/?uid={{ rs.0.uid }}';
+       }
+  }
+
+   function applyrefuse() {
+       $('#applytext').show();
+   }
+
+   function hidRefusePanel() {
+      $('#textarea').hide();
+
+   }
+
+</script>
+
+<form role="form" method="post"  action="#">
+    {% csrf_token %}
+    <table class="table table-hover">
+        <tr>
+            <td>身份证图片</td>
+            <td><img id="xmTanImg"  src="/system/showImg/?imgurl={{ rs.0.idperson1}}" width="300px" height="300px"/></td>
+        </tr>
+        <tr>
+            <td>行医资格证</td>
+            <td><img id="xmTanImg1" src="/system/showImg/?imgurl={{ rs.0.idperson2 }}" width="300px" height="300px"/></td>
+        </tr>
+        <tr>
+            <td colspan="2" align="center"><input type="button" value="审核通过" onclick="applysuccess( )"
+                                                  class="btn btn-primary">&nbsp&nbsp&nbsp&nbsp
+                <input type="button" value="审核驳回" onclick="applyrefuse()" class="btn btn-primary">
+            </td>
+        </tr>
+    </table>
+</form>
+
+<div id="applytext" style="position: relative;top:-300px;left:0px;padding: 12px;display: none">
+  <form method="post" action="/system/applyrefuse/">
+     {% csrf_token %}
+        <textarea name='content' class="form-control" rows='12' cols="60px"></textarea><br/>
+        <input type="hidden" name="receiveid" value='{{ rs.0.uid }}'>
+        <input type='submit' value='驳回'/>&nbsp;
+        <input type='button' value='取消' onclick="hidRefusePanel()" />
+  </form>
+
+</div>

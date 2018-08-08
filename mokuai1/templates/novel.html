@@ -1,0 +1,166 @@
+{% extends 'base.html' %}
+{# 开始替换主模板里面的 block content 区域#}
+{% block content %}
+     {% load static %}
+    <style>
+        #content {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            min-width: 1000px;
+            z-index: -10;
+            zoom: 1;
+            background-color: #fff;
+            background-repeat: no-repeat;
+            background-size: cover;
+            -webkit-background-size: cover;
+            -o-background-size: cover;
+            background-position: center 0;
+        }
+    .btn-primary {
+        padding-right: 23px;
+    }
+    </style>
+     <script>
+        function popLogin() {
+            $('#modalBody').load('/system/loginpanel');
+            $('#myModal').modal('show')
+        }
+
+        function zhucepanel() {
+            $('#modalBody').load('/system/zhucepanel');
+            $('#myModal').modal('show')
+        }
+
+        function seemessages() {
+            $('#modalBody').load('/system/seemessagespanel');
+            $('#myModal').modal('show')
+
+        }
+
+        function seemessagesiomp() {
+            $('#modalBody').load('/system/seemessagesiomppanel');
+            $('#myModal').modal('show')
+
+        }
+    </script>
+    <nav class="navbar navbar-default">
+        <img alt="Brand" class="navbar-brand" style="padding: 0" height="50" src="{% static 'img/logo.jpg' %}">
+        <a class="navbar-brand" href="#">抖抖医疗管理系统</a>
+        <ul class="nav navbar-nav" style="padding-right: 377px">
+            {% if loginbean.role == 0 %}
+                <a class="btn btn-primary btn-lg" data-toggle="modal" href="/system/adminhome/">管理员中心</a>
+            {% elif loginbean.role == 1 or loginbean.role == 2 %}
+                <a class="btn btn-primary btn-lg" data-toggle="modal" href="/system/usershome/">个人中心</a>
+            {% elif loginbean.role == 3 %}
+                <a class="btn btn-primary btn-lg" data-toggle="modal" href="/system/doctorhome/">医生中心</a>
+            {% endif %}
+        </ul>
+        {% if loginbean.role == Null %}
+            <div style="padding-left: 899px;margin-top: -7px">
+                {% if loginbean == None %}
+                    <ul class="nav navbar-nav navbar-right">
+                        <button class="btn btn-primary btn-lg" data-toggle="modal" onclick="zhucepanel()">注册</button>
+                        <button class="btn btn-primary btn-lg" data-toggle="modal" onclick="popLogin()">登陆</button>
+                    </ul>
+                {% else %}
+                    <ul class="nav navbar-nav navbar-right">
+                        {% if loginbean.role == 1 or loginbean.role == 2 %}
+                            <button class="btn btn-primary" type="button" onclick="seemessages()">
+                                Messages <span class="badge">{{ loginbean.msgnum }}</span>
+                            </button>
+                            您好！{{ loginbean.nicheng }}
+                            <a class="btn btn-primary btn-lg" data-toggle="modal" href="/system/loginout/">注销</a>
+                        {% elif loginbean.role == 0 %}
+                            <button class="btn btn-primary" type="button" onclick="seemessagesiomp()">
+                                Messages <span class="badge">{{ loginbean.msgnum }}</span>
+                            </button>
+                            您好！{{ loginbean.nicheng }}
+                            <a class="btn btn-primary btn-lg" data-toggle="modal" href="/system/loginout/">注销</a>
+                        {% elif loginbean.role == 3 %}
+                            您好！{{ loginbean.nicheng }}
+                            <a class="btn btn-primary btn-lg" data-toggle="modal" href="/system/loginout/">注销</a>
+                        {% endif %}
+                    </ul>
+                {% endif %}
+            </div>
+
+        {% else %}
+            <div style="padding-left: 899px;margin-top: -53px">
+                {% if loginbean == None %}
+                    <ul class="nav navbar-nav navbar-right">
+                        <button class="btn btn-primary btn-lg" data-toggle="modal" onclick="zhucepanel()">注册</button>
+                        <button class="btn btn-primary btn-lg" data-toggle="modal" onclick="popLogin()">登陆</button>
+                    </ul>
+                {% else %}
+                    <ul class="nav navbar-nav navbar-right">
+                        {% if loginbean.role == 1 or loginbean.role == 2 %}
+                            <button class="btn btn-primary" type="button" onclick="seemessages()">
+                                Messages <span class="badge">{{ loginbean.msgnum }}</span>
+                            </button>
+                            您好！：{{ loginbean.nicheng }}
+                            <a class="btn btn-primary btn-lg" data-toggle="modal" href="/system/loginout/">注销</a>
+                        {% elif loginbean.role == 0 %}
+                            <button class="btn btn-primary" type="button" onclick="seemessagesiomp()">
+                                Messages <span class="badge">{{ loginbean.msgnum }}</span>
+                            </button>
+                            您好！：{{ loginbean.nicheng }}
+                            <a class="btn btn-primary btn-lg" data-toggle="modal" href="/system/loginout/">注销</a>
+                        {% elif loginbean.role == 3 %}
+                            您好！：{{ loginbean.nicheng }}
+                            <a class="btn btn-primary btn-lg" data-toggle="modal" href="/system/loginout/">注销</a>
+                        {% endif %}
+                    </ul>
+                {% endif %}
+            </div>
+        {% endif %}
+        <div  style="padding-left: 899px;margin-top: -53px">
+        {% if loginbean == None %}
+            <ul class="nav navbar-nav navbar-right">
+                <button class="btn btn-primary btn-lg" data-toggle="modal" onclick="zhucepanel()">注册</button>
+                <button class="btn btn-primary btn-lg" data-toggle="modal" onclick="popLogin()">登陆</button>
+            </ul>
+        {% else %}
+            <ul class="nav navbar-nav navbar-right">
+                {% if loginbean.role == 1 or loginbean.role == 2 %}
+                    <button class="btn btn-primary" type="button" onclick="seemessages()">
+                        Messages <span class="badge">{{ loginbean.msgnum }}</span>
+                    </button>
+                    您好！：{{ loginbean.nicheng }}
+                    <a class="btn btn-primary btn-lg" data-toggle="modal" href="/system/loginout/">注销</a>
+                {% elif loginbean.role == 0 %}
+                    <button class="btn btn-primary" type="button" onclick="seemessagesiomp()">
+                        Messages <span class="badge">{{ loginbean.msgnum }}</span>
+                    </button>
+                    您好！：{{ loginbean.nicheng }}
+                    <a class="btn btn-primary btn-lg" data-toggle="modal" href="/system/loginout/">注销</a>
+                {% elif loginbean.role == 3 %}
+                    您好！：{{ loginbean.nicheng }}
+                    <a class="btn btn-primary btn-lg" data-toggle="modal" href="/system/loginout/">注销</a>
+                {% endif %}
+            </ul>
+        {% endif %}
+        </div>
+
+
+    </nav>
+
+    <div  id="content" style="background-image:url({% static "img/mainpage.jpg" %})">
+
+    </div>
+    <!-- 模态框（Modal） -->
+     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-body" id="modalBody">
+
+
+                </div>
+
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+{% endblock %}
